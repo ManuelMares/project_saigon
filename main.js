@@ -6,25 +6,26 @@ PresentSimple   ->  Exclamation
 
 Exclamation     ->  Imperative T_ExclamationMark
 Imperative      ->  SimpleSentence
-                    |Predicate
-Interrogative   ->  AuxiliarVerb SimpleSentence
-                    |T_InterrogationMark
-SimpleSentence  ->  Subject Predicate
+                    |PredicateList
+Interrogative   ->  AuxiliarVerb SimpleSentence T_InterrogationMark
+SimpleSentence  ->  Subject PredicateList
                     |
 
-VerbList        ->  VerbList 'and' T_verb
-                    |VerbList ','
-                    |T_verb
-                    | #Empty
+VerbList        ->  VerbPartial VerbList
+                    |Empty
 
-Subject         >   T_adjective T_subject
+VerbPartial     ->  T_Verb ',' | T_Verb | T_Verb 'and'
+
+Subject         ->  AdjectiveList T_subject
                     |SubjectList
-                    |Article T_Adjective T_Subject
+                    |Article AdjectiveList T_Subject
                     |Article SubjectList
                     |#Emtpy#
 
-PredicateList   ->  PredicateList Coordinator Predicate
-                    |Predicate
+PredicateList   ->  PredicatePartial PredicateList
+                    |#Empty#
+
+PredicatePartial->  Predicate Coordinator |  Predicate
 
 Predicate       ->  VerbPrefix VerbList SubjectList VerbList AdverbList
 
@@ -32,19 +33,28 @@ VerbPrefix      ->  AuxiliarVerb
                     |AdverbList
                     |#Empty#
 
-AdverbList      ->  T_Adverb ',' AdverbList
-                    |T_Adverb
-                    |#Empty#
+AdverbList      ->  AdverbPartial AdverbList
+                    |Empty
+
+AdverbPartial   ->  T_Adverb ',' | T_Adverb | T_Adverb 'and'
+
+AdjectiveList   ->  AdjectivePartial AdjectiveList
+                    |Empty
+
+AdjectivePartial->  T_adjective ',' | T_adjective | T_adjective 'and'
 
 Coordinator     ->  'for' | 'and' |'nor' | 'but' | 'or' | 'yet' |'so
 
-SubjectList     ->  SubjectList 'and' T_Subject
-                    |SubjectList ','
-                    |T_Subject
+SubjectList      ->  SubjectPartial SubjectList
+                    |Empty
+
+SubjectPartial   ->  T_Subject ',' | T_Subject | T_Subject 'and'
 
 AuxiliarVerb    ->  | 'do' | 'no' | 'does' | 'does not' | 'do not' | 'don't' | 'doesn't' | 'not' | #Empty#
 
 Compound        ->  SimpleSentence Coordinator SimpleSentence
+                    | SimpleSentence Coordinator Compound
+                    | SimpleSentence Coordinator Complex
 
 Complex         ->  Dependent ',' SimpleSentence
                     |SimpleSentence Dependent
@@ -59,6 +69,9 @@ SCauseEffect    ->  'since' | 'because' | 'if' | 'even though'
 
 Contrast        ->  'although' | 'while' | 'though' | 'whereas' | 'unless'
 */
+
+
+
 
 document.addEventListener("click", (event)=>{
     const button = event.target.id;
