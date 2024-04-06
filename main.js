@@ -74,7 +74,7 @@ Contrast        ->  'although' | 'while' | 'though' | 'whereas' | 'unless'
 
 let dict_presentSimple = {
     "PresentSimple": [
-        ["Declarative"]
+        ["Declarative"],
         ["Exclamation"],
         ["Imperative"],
         ["Interrogative"],
@@ -88,6 +88,9 @@ let dict_presentSimple = {
     ],
     "Interrogative": [
         ["AuxiliarVerb", "SimpleSentence", "T_InterrogationMark"]
+    ],
+    "Declarative": [
+        ["SimpleSentence"],
     ],
     "SimpleSentence": [
         ["Subject", "PredicateList"],
@@ -111,7 +114,7 @@ let dict_presentSimple = {
     ],
     "PredicateList": [
         ["PredicatePartial", "PredicateList"],
-        ["#Empty#"]
+        []
     ],
     "PredicatePartial": [
         ["Predicate", "Coordinator"],
@@ -123,7 +126,7 @@ let dict_presentSimple = {
     "VerbPrefix": [
         ["AuxiliarVerb"],
         ["AdverbList"],
-        ["#Empty#"]
+        []
     ],
     "AdverbList": [
         ["AdverbPartial", "AdverbList"],
@@ -170,7 +173,7 @@ let dict_presentSimple = {
         ["don't"],
         ["doesn't"],
         ["not"],
-        ["#Empty#"]
+        []
     ],
     "Compound": [
         ["SimpleSentence", "Coordinator", "SimpleSentence"],
@@ -213,142 +216,77 @@ let dict_presentSimple = {
     ]
 }
 
-
-function findOptimalPathAStar(start, target) {
-    const queue = new PriorityQueue(); // Priority queue for A* search
+function bfs(graph, startNode, targetNode, position) {
+    const queue = [startNode];
     const visited = new Set();
+    const parent = {};
 
-    queue.enqueue([start], 0); // Enqueue start node with priority 0
+    console.log(startNode)
 
-    while (!queue.isEmpty()) {
-        const [path, cost] = queue.dequeue();
-        const currentNode = path[path.length - 1];
 
-        if (currentNode === target) {
-            return path; // Return optimal path if target is reached
+    let counter = 0; 
+    let tokenCounter = 0;
+    while (queue.length > 0) {
+        counter++;
+        if(counter > 100)
+            return;
+
+        const currentNode = queue.shift();
+        visited.add(currentNode);
+
+        console.log("Node: ", currentNode);
+        
+        if (currentNode === targetNode) {
+            console.log("FOUND!!!")
+            return getPath(startNode, targetNode, parent);
         }
 
-        if (!visited.has(currentNode)) {
-            visited.add(currentNode);
-            if (dict_presentSimple.hasOwnProperty(currentNode)) {
-                for (const child of dict_presentSimple[currentNode]) {
-                    const newPath = path.concat(child);
-                    const newCost = cost + 1; // Increment cost by 1 for simplicity
-                    queue.enqueue(newPath, newCost); // Enqueue child node with updated cost
-                }
+        if(currentNode.startsWith("T_"))
+            continue;
+
+        //Each metanode contains nodes. This double for loop just adds all nodes in the queue.
+        let edges = graph[currentNode];
+
+        if(!edges)  
+            continue;
+
+        for (let edgeIndex = 0; edgeIndex < edges.length; edgeIndex++) {
+            let metaNode = edges[edgeIndex];
+            for (let nodeIndex = 0; nodeIndex < metaNode.length; nodeIndex++) {
+                let node = metaNode[nodeIndex]
+                //add each node to the queue
+                queue.push(node);
+
             }
         }
+
     }
+
     return null; // Path not found
 }
 
-// Priority queue implementation (for simplicity, assuming small number of nodes)
-class PriorityQueue {
-    constructor() {
-        this.queue = [];
-    }
+// function getPath(startNode, targetNode, parent) {
+//     const path = [targetNode];
+//     let current = targetNode;
 
-    enqueue(item, priority) {
-        this.queue.push({ item, priority });
-        this.queue.sort((a, b) => a.priority - b.priority);
-    }
+//     while (current !== startNode) {
+//         if (!parent[current]) {
+//             return null; // Target node is not reachable from start node
+//         }
+//         current = parent[current];
+//         path.unshift(current);
+//     }
 
-    dequeue() {
-        if (!this.isEmpty()) {
-            return this.queue.shift().item;
-        }
-        return null;
-    }
-
-    isEmpty() {
-        return this.queue.length === 0;
-    }
-}
+//     return path;
+// }
 
 // Example usage:
 const startNode = "PresentSimple";
 const targetNode = "T_Subject";
-const optimalPath = findOptimalPathAStar(startNode, targetNode);
-console.log("Optimal Path:", optimalPath);
+let position = 1 //the position of the token we are looking for
 
-
-
-// function bfs(graph, startNode, target){
-//     let visited = new Set();
-//     let queue = [[startNode]];
-
-//     let counter = 0
-//     while(queue.length > 0){
-//         let node = queue.shift();
-
-//         if(!visited.has(node)){
-//             visited.add(node);
-
-//             let neighbors = graph[node] || []
-//             queue.push(neighbors)
-//             console.log(`First node is: ${node} its neighbors are: ${neighbors}`)
-//             if(node === target)
-//             {
-//                 console.log("target FOUND!!!!!!!!!")
-//                 return;
-//             }
-//             if(counter ==5){
-//                 return;
-//             }
-//         }
-//         counter++;
-//     }
-
-// }
-
-
-// let test1 = ["T_Subject", "T_Verb"]
-
-// let index = 0 //Each node is composed of an array of strings, if we are looking of the first element in the tokenized list, we want 
-// test1.forEach(token => {
-//     bfs(dict_presentSimple, "PresentSimple", token);    
-// });
-
-
-
-
-
-
-
-
-// document.addEventListener("click", (event)=>{
-//     const button = event.target.id;
-//     const buttonId = button.id;
-//     if (buttonId == "buttonUp"){
-//         console.log('button up pressed');
-//     }
-//     if (buttonId == "buttonRight"){
-//         console.log('buttonRight pressed');
-//     }
-//     if (buttonId == "buttonDown"){
-//         console.log('buttonDown pressed');
-//     }
-//     if (buttonId == "buttonLeft"){
-//         console.log('buttonLeft pressed');
-//     }
-// })
-
-// document.addEventListener('keydown', function(event) {
-//         const key = event.key;
-//         if (key === 'ArrowLeft') {
-//             // Handle left arrow key press
-//             console.log('Left arrow key pressed');
-//         } else if (key === 'ArrowUp') {
-//             // Handle up arrow key press
-//             console.log('Up arrow key pressed');
-//         } else if (key === 'ArrowDown') {
-//             // Handle down arrow key press
-//             console.log('Down arrow key pressed');
-//         } else if (key === 'ArrowRight') {
-//             // Handle right arrow key press
-//             console.log('Right arrow key pressed');
-//         }
-// });
+const path = bfs(dict_presentSimple, startNode, targetNode, position);
+console.log("Optimal Path:", path);
 
 
 
