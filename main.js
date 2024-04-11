@@ -487,6 +487,7 @@ function bfs2(graph, startNode, targetNode, position) {
                     let childNode = metaNode[metaNodeIndex];
                     // console.log("-", childNode)
 
+                    ///TO AVOID RECURSION IN PREDICATE LIST
                     if(targetNode === "T_Verb" || targetNode === "T_AuxiliarVerb" || targetNode === "T_Adverb"){
                         if(visitPL === true && childNode === "PredicateList"){
                             //add child
@@ -508,6 +509,12 @@ function bfs2(graph, startNode, targetNode, position) {
                         }
                         if(currentNode === "T_Verb" || currentNode === "T_AuxiliarVerb" || currentNode === "T_Adverb"){
                             visitPL = true;
+                            queue.push(childNode);
+                            if (Array.isArray(parent[childNode])) {
+                                parent[childNode].push(currentNode);
+                            } else {
+                                parent[childNode] = [currentNode];
+                            }
                         }
 
                     }else{
@@ -519,6 +526,8 @@ function bfs2(graph, startNode, targetNode, position) {
                             parent[childNode] = [currentNode];
                         }
                     }
+
+
 
 
                 }
@@ -554,8 +563,8 @@ console.log(parent)
 // Example usage:
 const startNode2 = "PresentSimple";
 const targetNode2 = "T_Subject";
-// const targets = ["T_Verb", "T_AuxiliarVerb", "T_Subject","T_Adverb","T_Article","T_Coordinator","T_Adjective", "T_ExclamationMark", "T_InterrogationMark"]
-const targets = ["T_Verb"]
+const targets = ["T_Verb", "T_AuxiliarVerb", "T_Subject","T_Adverb","T_Article","T_Coordinator","T_Adjective", "T_ExclamationMark", "T_InterrogationMark"]
+// const targets = ["T_Verb"]
 let position2 = 0 //the position of the token we are looking for
 
 for (let index = 0; index < targets.length; index++) {
