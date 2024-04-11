@@ -92,9 +92,6 @@ let dict_presentSimple = {
     "Declarative": [
         ["SimpleSentence"]
     ],
-    "Declarative": [
-        ["SimpleSentence"],
-    ],
     "SimpleSentence": [
         ["Subject", "PredicateList"],
         []
@@ -467,8 +464,11 @@ function bfs2(graph, startNode, targetNode, position) {
         const currentNode = queue.shift();
         visited.add(currentNode);
         
+        // console.log("parent: ", parent[currentNode]);
+        console.log(`parent: ${currentNode}`);
         
         if (currentNode === targetNode) {
+            // console.log("Target was found: ", targetNode);
             return getPath2(startNode, targetNode, parent);
         }
         // console.log(currentNode)
@@ -483,10 +483,9 @@ function bfs2(graph, startNode, targetNode, position) {
 
             for (let edgeIndex = 0; edgeIndex < edges.length; edgeIndex++) {
                 let metaNode = edges[edgeIndex];
-                if (metaNode.length < position || !metaNode[position]) {
-                    continue;
-                } else {
-                    let node = metaNode[position];
+                for (let metaNodeIndex = 0; metaNodeIndex < metaNode.length; metaNodeIndex++) {
+                    let node = metaNode[metaNodeIndex];
+                    console.log("-", node)
                     queue.push(node);
                     if (Array.isArray(parent[node])) {
                         parent[node].push(currentNode);
@@ -526,7 +525,8 @@ console.log(parent)
 // Example usage:
 const startNode2 = "PresentSimple";
 const targetNode2 = "T_Subject";
-const targets = ["T_Verb", "T_AuxiliarVerb", "T_Subject","T_Adverb","T_Article","T_Coordinator","T_Adjective", "T_ExclamationMark", "T_InterrogationMark"]
+// const targets = ["T_Verb", "T_AuxiliarVerb", "T_Subject","T_Adverb","T_Article","T_Coordinator","T_Adjective", "T_ExclamationMark", "T_InterrogationMark"]
+const targets = ["T_Coordinator"]
 let position2 = 0 //the position of the token we are looking for
 
 for (let index = 0; index < targets.length; index++) {
