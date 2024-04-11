@@ -464,8 +464,7 @@ function bfs2(graph, startNode, targetNode, position) {
         const currentNode = queue.shift();
         visited.add(currentNode);
         
-        // console.log("parent: ", parent[currentNode]);
-        console.log(`parent: ${currentNode}`);
+        // console.log(`parent: ${currentNode}`);
         
         if (currentNode === targetNode) {
             // console.log("Target was found: ", targetNode);
@@ -485,7 +484,7 @@ function bfs2(graph, startNode, targetNode, position) {
                 let metaNode = edges[edgeIndex];
                 for (let metaNodeIndex = 0; metaNodeIndex < metaNode.length; metaNodeIndex++) {
                     let node = metaNode[metaNodeIndex];
-                    console.log("-", node)
+                    // console.log("-", node)
                     queue.push(node);
                     if (Array.isArray(parent[node])) {
                         parent[node].push(currentNode);
