@@ -452,13 +452,14 @@ for (let node in dict_presentSimple) {
 function bfs2(graph, startNode, targetNode, position) {
     const queue = [startNode];
     const visited = new Set();
+    let visitPL = true;
 
 
     let counter = 0;
     let tokenCounter = 0;
     while (queue.length > 0) {
         counter++;
-        if(counter > 100)
+        if(counter > 50)
             return;
 
         const currentNode = queue.shift();
@@ -483,14 +484,43 @@ function bfs2(graph, startNode, targetNode, position) {
             for (let edgeIndex = 0; edgeIndex < edges.length; edgeIndex++) {
                 let metaNode = edges[edgeIndex];
                 for (let metaNodeIndex = 0; metaNodeIndex < metaNode.length; metaNodeIndex++) {
-                    let node = metaNode[metaNodeIndex];
-                    // console.log("-", node)
-                    queue.push(node);
-                    if (Array.isArray(parent[node])) {
-                        parent[node].push(currentNode);
-                    } else {
-                        parent[node] = [currentNode];
+                    let childNode = metaNode[metaNodeIndex];
+                    // console.log("-", childNode)
+
+                    if(targetNode === "T_Verb" || targetNode === "T_AuxiliarVerb" || targetNode === "T_Adverb"){
+                        if(visitPL === true && childNode === "PredicateList"){
+                            //add child
+                            queue.push(childNode);
+                            if (Array.isArray(parent[childNode])) {
+                                parent[childNode].push(currentNode);
+                            } else {
+                                parent[childNode] = [currentNode];
+                            }
+                            visitPL = false;
+                        }
+                        if(childNode !== "PredicateList"){
+                            queue.push(childNode);
+                            if (Array.isArray(parent[childNode])) {
+                                parent[childNode].push(currentNode);
+                            } else {
+                                parent[childNode] = [currentNode];
+                            }
+                        }
+                        if(currentNode === "T_Verb" || currentNode === "T_AuxiliarVerb" || currentNode === "T_Adverb"){
+                            visitPL = true;
+                        }
+
+                    }else{
+                        //add
+                        queue.push(childNode);
+                        if (Array.isArray(parent[childNode])) {
+                            parent[childNode].push(currentNode);
+                        } else {
+                            parent[childNode] = [currentNode];
+                        }
                     }
+
+
                 }
             }
     }
@@ -525,7 +555,7 @@ console.log(parent)
 const startNode2 = "PresentSimple";
 const targetNode2 = "T_Subject";
 // const targets = ["T_Verb", "T_AuxiliarVerb", "T_Subject","T_Adverb","T_Article","T_Coordinator","T_Adjective", "T_ExclamationMark", "T_InterrogationMark"]
-const targets = ["T_Coordinator"]
+const targets = ["T_Verb"]
 let position2 = 0 //the position of the token we are looking for
 
 for (let index = 0; index < targets.length; index++) {
