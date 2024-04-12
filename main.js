@@ -142,9 +142,9 @@ let dict_presentSimple = {
         []
     ],
     "AdjectivePartial": [
-        ["T_adjective", ","],
-        ["T_adjective"],
-        ["T_adjective", "and"]
+        ["T_Adjective", ","],
+        ["T_Adjective"],
+        ["T_Adjective", "and"]
     ],
     "SubjectList": [
         ["SubjectPartial", "SubjectList"],
@@ -449,18 +449,23 @@ for (let node in dict_presentSimple) {
     parent[node] = [];
 }
 
-function bfs2(graph, startNode, targetNode, position) {
+function bfs(graph, startNode, targetNode, maxDepth) {
     const queue = [startNode];
     const visited = new Set();
-    let visitPL = true;
+    let maxDepths_Lists = {
+        "SubjectList": 0,
+        "AdjectiveList": 0,
+        "AdverbList": 0,
+        "PredicateList": 0,
+        "VerbList": 0,
+    }
 
 
     let counter = 0;
-    let tokenCounter = 0;
     while (queue.length > 0) {
         counter++;
-        if(counter > 50)
-            return;
+        if(counter > 1000)
+            return [];
 
         const currentNode = queue.shift();
         visited.add(currentNode);
@@ -469,7 +474,7 @@ function bfs2(graph, startNode, targetNode, position) {
         
         if (currentNode === targetNode) {
             // console.log("Target was found: ", targetNode);
-            return getPath2(startNode, targetNode, parent);
+            return getPath(startNode, targetNode, parent);
         }
         // console.log(currentNode)
         if(currentNode.startsWith("T_"))
@@ -487,19 +492,11 @@ function bfs2(graph, startNode, targetNode, position) {
                     let childNode = metaNode[metaNodeIndex];
                     // console.log("-", childNode)
 
-                    ///TO AVOID RECURSION IN PREDICATE LIST
-                    if(targetNode === "T_Verb" || targetNode === "T_AuxiliarVerb" || targetNode === "T_Adverb"){
-                        if(visitPL === true && childNode === "PredicateList"){
-                            //add child
-                            queue.push(childNode);
-                            if (Array.isArray(parent[childNode])) {
-                                parent[childNode].push(currentNode);
-                            } else {
-                                parent[childNode] = [currentNode];
-                            }
-                            visitPL = false;
-                        }
-                        if(childNode !== "PredicateList"){
+                    if(childNode in maxDepths_Lists){
+                        //increase counter
+                        maxDepths_Lists[childNode] += 1;
+                        //if less than maxDepth, add child, otherwise, don't
+                        if(maxDepths_Lists[childNode] <= maxDepth){
                             queue.push(childNode);
                             if (Array.isArray(parent[childNode])) {
                                 parent[childNode].push(currentNode);
@@ -507,18 +504,7 @@ function bfs2(graph, startNode, targetNode, position) {
                                 parent[childNode] = [currentNode];
                             }
                         }
-                        if(currentNode === "T_Verb" || currentNode === "T_AuxiliarVerb" || currentNode === "T_Adverb"){
-                            visitPL = true;
-                            queue.push(childNode);
-                            if (Array.isArray(parent[childNode])) {
-                                parent[childNode].push(currentNode);
-                            } else {
-                                parent[childNode] = [currentNode];
-                            }
-                        }
-
                     }else{
-                        //add
                         queue.push(childNode);
                         if (Array.isArray(parent[childNode])) {
                             parent[childNode].push(currentNode);
@@ -529,14 +515,13 @@ function bfs2(graph, startNode, targetNode, position) {
 
 
 
-
                 }
             }
     }
-    return null; // Path not found
+    return []; // Path not found
 }
 
-function getPath2(startNode, targetNode, parent) {
+function getPath(startNode, targetNode, parent) {
     const path = [];
     let current = targetNode;
     let counter = 0; 
@@ -548,8 +533,8 @@ function getPath2(startNode, targetNode, parent) {
         path.unshift(current);
         current = parent[current] ? parent[current][0] : null; // Check if parent[current] exists
         if (!current) {
-            console.error("No parent found for node:", current);
-            return null;
+            // console.error("No parent found for node:", current);
+            return path;
         }
     }
     path.unshift(startNode); // Add start node to path
@@ -558,22 +543,30 @@ function getPath2(startNode, targetNode, parent) {
 }
 
 
-console.log(parent)
-
-// Example usage:
-const startNode2 = "PresentSimple";
-const targetNode2 = "T_Subject";
 const targets = ["T_Verb", "T_AuxiliarVerb", "T_Subject","T_Adverb","T_Article","T_Coordinator","T_Adjective", "T_ExclamationMark", "T_InterrogationMark"]
-// const targets = ["T_Verb"]
-let position2 = 0 //the position of the token we are looking for
 
-for (let index = 0; index < targets.length; index++) {
-    let target = targets[index];
-    console.log("FINDING TARGET=========: ", target)
-    const path2 = bfs2(dict_presentSimple, startNode2, target, position2);
-    console.log("Optimal Path:", path2);
-    
-}
+Object.keys(dict_heuristics).forEach(root => {
+    console.log("============SEARCHING FOR ROOT: ", root + "===============")
+    let node = dict_heuristics[root];
+    //for each node
+    // for (let indexToken = 0; indexToken < node.length; indexToken++) {
+    //     let tokenKey    = node[indexToken];
+    //     // console.log(tokenKey)
+    //     let distance    = tokenKey["distance"];
+    //     let path        = tokenKey["path"];
+    //     let name        = tokenKey["token"]
+    //     // console.log(distance, path, name)
+
+        for (let indexTarget = 0; indexTarget < targets.length; indexTarget++) {
+                let target = targets[indexTarget];
+                const path = bfs(dict_presentSimple, root, target, targets.length);
+                if(path)
+                    console.log(`------------------Root ${root} > target ${target}:     Optimal Path: `, path.length);
+                //Notice that path might be empty, and then length breaks 
+                //(length == 0 because root == target, or infinity because it cannot go upwards?)
+        }
+    // }
+})
 
 
 
