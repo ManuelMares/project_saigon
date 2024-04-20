@@ -594,3 +594,6 @@ function main(){
 
     */
 }
+
+
+<button onclick="f1()"/>
