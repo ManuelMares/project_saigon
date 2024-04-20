@@ -557,6 +557,7 @@ function getHeuristic(node, target){
     return 'backtrack'
 };
 
+
 const targets = ["T_Verb", "T_AuxiliarVerb", "T_Subject","T_Adverb","T_Article","T_Coordinator","T_Adjective", "T_ExclamationMark", "T_InterrogationMark"]
 // Object.keys(dict_heuristics).forEach(root => {
 //     console.log("============SEARCHING FOR ROOT: ", root + "===============")
@@ -581,6 +582,122 @@ const targets = ["T_Verb", "T_AuxiliarVerb", "T_Subject","T_Adverb","T_Article",
 //         }
 //     // }
 // })
+
+
+
+
+
+
+
+
+
+
+
+
+const parent_DFS = {};
+
+// Initialize parent object with arrays for each node
+for (let node in dict_presentSimple) {
+    parent_DFS[node] = [];
+}
+
+function dfs_DFS(graph, startNode, targetNode, maxDepth) {
+    const stack = [startNode];
+    const visited = new Set();
+    let maxDepths_Lists = {
+        "SubjectList": 0,
+        "AdjectiveList": 0,
+        "AdverbList": 0,
+        "PredicateList": 0,
+        "VerbList": 0,
+    }
+
+    let counter = 0;
+    while (stack.length > 0) {
+        counter++;
+        if(counter > 1000)
+            return [];
+
+        const currentNode = stack.pop();
+        visited.add(currentNode);
+
+        if (currentNode === targetNode) {
+            return getPath_DFS(startNode, targetNode, parent_DFS);
+        }
+
+        if(currentNode.startsWith("T_"))
+            continue;
+
+        let edges = graph[currentNode];
+
+        if(!edges)
+            continue;
+
+        for (let edgeIndex = 0; edgeIndex < edges.length; edgeIndex++) {
+            let metaNode = edges[edgeIndex];
+            for (let metaNodeIndex = 0; metaNodeIndex < metaNode.length; metaNodeIndex++) {
+                let childNode = metaNode[metaNodeIndex];
+
+                if(childNode in maxDepths_Lists){
+                    maxDepths_Lists[childNode] += 1;
+                    if(maxDepths_Lists[childNode] <= maxDepth){
+                        stack.push(childNode);
+                        if (Array.isArray(parent_DFS[childNode])) {
+                            parent_DFS[childNode].push(currentNode);
+                        } else {
+                            parent_DFS[childNode] = [currentNode];
+                        }
+                    }
+                }else{
+                    stack.push(childNode);
+                    if (Array.isArray(parent_DFS[childNode])) {
+                        parent_DFS[childNode].push(currentNode);
+                    } else {
+                        parent_DFS[childNode] = [currentNode];
+                    }
+                }
+            }
+        }
+    }
+    return []; // Path not found
+}
+
+function getPath_DFS(startNode, targetNode, parent_DFS) {
+    const path = [];
+    let current = targetNode;
+    let counter = 0;
+    while (current !== startNode) {
+        counter++;
+        if(counter > 100)
+            break;
+
+        path.unshift(current);
+        current = parent_DFS[current] ? parent_DFS[current][0] : null; // Check if parent[current] exists
+        if (!current) {
+            return path;
+        }
+    }
+    path.unshift(startNode); // Add start node to path
+
+    return path;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
