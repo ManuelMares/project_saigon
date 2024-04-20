@@ -106,11 +106,11 @@ let dict_presentSimple = {
         ["T_Verb", "and"]
     ],
     "Subject": [
-        ["AdjectiveList", "T_subject"],
+        ["AdjectiveList", "T_Subject"],
         ["SubjectList"],
         ["T_Article", "AdjectiveList", "T_Subject"],
         ["T_Article", "SubjectList"],
-        ["#Emtpy#"]
+        []
     ],
     "PredicateList": [
         ["PredicatePartial", "PredicateList"],
@@ -170,277 +170,271 @@ let dict_presentSimple = {
 }
 
 let dict_heuristics = {
-    "PresentSimple":[
-        {"token": "T_Verb", "distance": 7, "path": "Imperative"},
-        {"token": "T_AuxiliarVerb", "distance": 2, "path": "Interrogative"},
-        {"token": "T_Subject", "distance": 4, "path": "Declarative"},
-        {"token": "T_Adverb", "distance": 7, "path": "Imperative"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": 4, "path": "Declarative"},
-        {"token": "T_Coordinator", "distance": 4, "path": "Imperative"},
-        {"token": "T_Adjective", "distance": 6, "path": "Declarative"},
-        {"token": "T_ExclamationMark", "distance": 2, "path": "Exclamation"},
-        {"token": "T_InterrogationMark", "distance": 2, "path": "Interrogative"}
-    ],
-    "Exclamation": [
-        {"token": "T_Verb", "distance": 7, "path": "Imperative"},
-        {"token": "T_AuxiliarVerb", "distance": 6, "path": "Imperative"},
-        {"token": "T_Subject", "distance": 4, "path": "Imperative"},
-        {"token": "T_Adverb", "distance": 7, "path": "Imperative"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": 4, "path": "Imperative"},
-        {"token": "T_Coordinator", "distance": 4, "path": "Imperative"},
-        {"token": "T_Adjective", "distance": 6, "path": "Imperative"},
-        {"token": "T_ExclamationMark", "distance": 1, "path": "Imperative"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "Imperative": [
-        {"token": "T_Verb", "distance": 6, "path": "PredicateList"},
-        {"token": "T_AuxiliarVerb", "distance": 5, "path": "PredicateList"},
-        {"token": "T_Subject", "distance": 3, "path": "SimpleSentence"},
-        {"token": "T_Adverb", "distance": 6, "path": "PredicateList"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": 3, "path": "SimpleSentence"},
-        {"token": "T_Coordinator", "distance": 3, "path": "PredicateList"},
-        {"token": "T_Adjective", "distance": 5, "path": "SimpleSentence"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "Interrogative": [
-        {"token": "T_Verb", "distance": 7, "path": "SimpleSentence"},
-        {"token": "T_AuxiliarVerb", "distance": 1, "path": "T_AuxiliarVerb"},
-        {"token": "T_Subject", "distance": 3, "path": "SimpleSentence"},
-        {"token": "T_Adverb", "distance": 7, "path": "SimpleSentence"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": 3, "path": "SimpleSentence"},
-        {"token": "T_Coordinator", "distance": 4, "path": "SimpleSentence"},
-        {"token": "T_Adjective", "distance": 5, "path": "SimpleSentence"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": 1, "path": "T_InterrogationMark"}
-    ],
-    "Declarative": [
-        {"token": "T_Verb", "distance": 7, "path": "SimpleSentence"},
-        {"token": "T_AuxiliarVerb", "distance": 6, "path": "SimpleSentence"},
-        {"token": "T_Subject", "distance": 3, "path": "SimpleSentence"},
-        {"token": "T_Adverb", "distance": 7, "path": "SimpleSentence"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": 3, "path": "SimpleSentence"},
-        {"token": "T_Coordinator", "distance": 4, "path": "SimpleSentence"},
-        {"token": "T_Adjective", "distance": 5, "path": "SimpleSentence"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "SimpleSentence": [
-        {"token": "T_Verb", "distance": 6, "path": "PredicateList"},
-        {"token": "T_AuxiliarVerb", "distance": 5, "path": "PredicateList"},
-        {"token": "T_Subject", "distance": 2, "path": "Subject"},
-        {"token": "T_Adverb", "distance": 6, "path": "PredicateList"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": 2, "path": "Subject"},
-        {"token": "T_Coordinator", "distance": 3, "path": "PredicateList"},
-        {"token": "T_Adjective", "distance": 4, "path": "Subject"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "VerbList": [
-        {"token": "T_Verb", "distance": 2, "path": "VerbPartial"},
-        {"token": "T_AuxiliarVerb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subject", "distance": math.inf, "path": "np"},
-        {"token": "T_Adverb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": math.inf, "path": "np"},
-        {"token": "T_Coordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Adjective", "distance": math.inf, "path": "np"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "VerbPartial": [
-        {"token": "T_Verb", "distance": 1, "path": "T_Verb"},
-        {"token": "T_AuxiliarVerb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subject", "distance": math.inf, "path": "np"},
-        {"token": "T_Adverb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": math.inf, "path": "np"},
-        {"token": "T_Coordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Adjective", "distance": math.inf, "path": "np"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "Subject": [
-        {"token": "T_Verb", "distance": math.inf, "path": "np"},
-        {"token": "T_AuxiliarVerb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subject", "distance": 1, "path": "T_Subject"},
-        {"token": "T_Adverb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": 1, "path": "T_Article"},
-        {"token": "T_Coordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Adjective", "distance": 3, "path": "AdjectiveList"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "PredicateList": [
-        {"token": "T_Verb", "distance": 5, "path": "PredicatePartial"},
-        {"token": "T_AuxiliarVerb", "distance": 4, "path": "PredicatePartial"},
-        {"token": "T_Subject", "distance": 5, "path": "PredicatePartial"},
-        {"token": "T_Adverb", "distance": 5, "path": "PredicatePartial"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": math.inf, "path": "np"},
-        {"token": "T_Coordinator", "distance": 2, "path": "PredicatePartial"},
-        {"token": "T_Adjective", "distance": math.inf, "path": "np"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "PredicatePartial": [
-        {"token": "T_Verb", "distance": 4, "path": "Predicate"},
-        {"token": "T_AuxiliarVerb", "distance": 3, "path": "Predicate"},
-        {"token": "T_Subject", "distance": 4, "path": "Predicate"},
-        {"token": "T_Adverb", "distance": 4, "path": "Predicate"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": math.inf, "path": "np"},
-        {"token": "T_Coordinator", "distance": 1, "path": "T_Coordinator"},
-        {"token": "T_Adjective", "distance": math.inf, "path": "np"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "Predicate": [
-        {"token": "T_Verb", "distance": 3, "path": "VerbList"},
-        {"token": "T_AuxiliarVerb", "distance": 2, "path": "VerbPrefix"},
-        {"token": "T_Subject", "distance": 3, "path": "nSubjectList"},
-        {"token": "T_Adverb", "distance": 3, "path": "AdverbList"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": math.inf, "path": "np"},
-        {"token": "T_Coordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Adjective", "distance": math.inf, "path": "np"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "VerbPrefix": [
-        {"token": "T_Verb", "distance": math.inf, "path": "np"},
-        {"token": "T_AuxiliarVerb", "distance":1, "path": "T_AuxiliarVerb"},
-        {"token": "T_Subject", "distance": math.inf, "path": "np"},
-        {"token": "T_Adverb", "distance": 3, "path": "AdverbList"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": math.inf, "path": "np"},
-        {"token": "T_Coordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Adjective", "distance": math.inf, "path": "np"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "AdverbList": [
-        {"token": "T_Verb", "distance": math.inf, "path": "np"},
-        {"token": "T_AuxiliarVerb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subject", "distance": math.inf, "path": "np"},
-        {"token": "T_Adverb", "distance": 2, "path": "AdverbPartial"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": math.inf, "path": "np"},
-        {"token": "T_Coordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Adjective", "distance": math.inf, "path": "np"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "AdverbPartial": [
-        {"token": "T_Verb", "distance": math.inf, "path": "np"},
-        {"token": "T_AuxiliarVerb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subject", "distance": math.inf, "path": "np"},
-        {"token": "T_Adverb", "distance": 1, "path": "T_Adverb"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": math.inf, "path": "np"},
-        {"token": "T_Coordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Adjective", "distance": math.inf, "path": "np"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "AdjectiveList": [
-        {"token": "T_Verb", "distance": math.inf, "path": "np"},
-        {"token": "T_AuxiliarVerb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subject", "distance": math.inf, "path": "np"},
-        {"token": "T_Adverb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": math.inf, "path": "np"},
-        {"token": "T_Coordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Adjective", "distance": 2, "path": "AdjectivePartial"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "AdjectivePartial": [
-        {"token": "T_Verb", "distance": math.inf, "path": "np"},
-        {"token": "T_AuxiliarVerb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subject", "distance": math.inf, "path": "np"},
-        {"token": "T_Adverb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": math.inf, "path": "np"},
-        {"token": "T_Coordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Adjective", "distance": 1, "path": "T_Adjective"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "SubjectList": [
-        {"token": "T_Verb", "distance": math.inf, "path": "np"},
-        {"token": "T_AuxiliarVerb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subject", "distance": 2, "path": "SubjectPartial"},
-        {"token": "T_Adverb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": math.inf, "path": "np"},
-        {"token": "T_Coordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Adjective", "distance": math.inf, "path": "np"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "SubjectPartial": [
-        {"token": "T_Verb", "distance": math.inf, "path": "np"},
-        {"token": "T_AuxiliarVerb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subject", "distance": 1, "path": "T_Subject"},
-        {"token": "T_Adverb", "distance": math.inf, "path": "np"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": math.inf, "path": "np"},
-        {"token": "T_Coordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Adjective", "distance": math.inf, "path": "np"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "Compound": [
-        {"token": "T_Verb", "distance": 7, "path": "SimpleSentence"},
-        {"token": "T_AuxiliarVerb", "distance": 6, "path": "SimpleSentence"},
-        {"token": "T_Subject", "distance": 3, "path": "SimpleSentence"},
-        {"token": "T_Adverb", "distance": 7, "path": "SimpleSentence"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": 3, "path": "SimpleSentence"},
-        {"token": "T_Coordinator", "distance": 1, "path": "T_Coordinator"},
-        {"token": "T_Adjective", "distance": 5, "path": "SimpleSentence"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "Complex": [
-        {"token": "T_Verb", "distance": 7, "path": "SimpleSentence"},
-        {"token": "T_AuxiliarVerb", "distance": 6, "path": "SimpleSentence"},
-        {"token": "T_Subject", "distance": 3, "path": "SimpleSentence"},
-        {"token": "T_Adverb", "distance": 7, "path": "SimpleSentence"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": 3, "path": "SimpleSentence"},
-        {"token": "T_Coordinator", "distance": 4, "path": "SimpleSentence"},
-        {"token": "T_Adjective", "distance": 5, "path": "SimpleSentence"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ],
-    "Dependent": [
-        {"token": "T_Verb", "distance": 7, "path": "SimpleSentence"},
-        {"token": "T_AuxiliarVerb", "distance": 6, "path": "SimpleSentence"},
-        {"token": "T_Subject", "distance": 3, "path": "SimpleSentence"},
-        {"token": "T_Adverb", "distance": 7, "path": "SimpleSentence"},
-        {"token": "T_Subordinator", "distance": math.inf, "path": "np"},
-        {"token": "T_Article", "distance": 3, "path": "SimpleSentence"},
-        {"token": "T_Coordinator", "distance": 4, "path": "SimpleSentence"},
-        {"token": "T_Adjective", "distance": 5, "path": "SimpleSentence"},
-        {"token": "T_ExclamationMark", "distance": math.inf, "path": "np"},
-        {"token": "T_InterrogationMark", "distance": math.inf, "path": "np"}
-    ]
+    "PresentSimple":{
+        "T_Verb": {"distance": 7, "path": "Imperative"},
+        "T_AuxiliarVerb": {"distance": 2, "path": "Interrogative"},
+        "T_Subject": {"distance": 4, "path": "Declarative"},
+        "T_Adverb": {"distance": 7, "path": "Imperative"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": 4, "path": "Declarative"},
+        "T_Coordinator": {"distance": 4, "path": "Imperative"},
+        "T_Adjective": {"distance": 6, "path": "Declarative"},
+        "T_ExclamationMark": {"distance": 2, "path": "Exclamation"},
+        "T_InterrogationMark": {"distance": 2, "path": "Interrogative"}
+    },
+    "Exclamation": {
+        "T_Verb": {"distance": 7, "path": "Imperative"},
+        "T_AuxiliarVerb": {"distance": 6, "path": "Imperative"},
+        "T_Subject": {"distance": 4, "path": "Imperative"},
+        "T_Adverb": {"distance": 7, "path": "Imperative"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": 4, "path": "Imperative"},
+        "T_Coordinator": {"distance": 4, "path": "Imperative"},
+        "T_Adjective": {"distance": 6, "path": "Imperative"},
+        "T_ExclamationMark": {"distance": 1, "path": "Imperative"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "Imperative": {
+        "T_Verb": {"distance": 6, "path": "PredicateList"},
+        "T_AuxiliarVerb": {"distance": 5, "path": "PredicateList"},
+        "T_Subject": {"distance": 3, "path": "SimpleSentence"},
+        "T_Adverb": {"distance": 6, "path": "PredicateList"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": 3, "path": "SimpleSentence"},
+        "T_Coordinator": {"distance": 3, "path": "PredicateList"},
+        "T_Adjective": {"distance": 5, "path": "SimpleSentence"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "Interrogative": {
+        "T_Verb": {"distance": 7, "path": "SimpleSentence"},
+        "T_AuxiliarVerb": {"distance": 1, "path": "T_AuxiliarVerb"},
+        "T_Subject": {"distance": 3, "path": "SimpleSentence"},
+        "T_Adverb": {"distance": 7, "path": "SimpleSentence"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": 3, "path": "SimpleSentence"},
+        "T_Coordinator": {"distance": 4, "path": "SimpleSentence"},
+        "T_Adjective": {"distance": 5, "path": "SimpleSentence"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": 1, "path": "T_InterrogationMark"}
+    },
+    "Declarative": {
+        "T_Verb": {"distance": 7, "path": "SimpleSentence"},
+        "T_AuxiliarVerb": {"distance": 6, "path": "SimpleSentence"},
+        "T_Subject": {"distance": 3, "path": "SimpleSentence"},
+        "T_Adverb": {"distance": 7, "path": "SimpleSentence"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": 3, "path": "SimpleSentence"},
+        "T_Coordinator": {"distance": 4, "path": "SimpleSentence"},
+        "T_Adjective": {"distance": 5, "path": "SimpleSentence"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "SimpleSentence": {
+        "T_Verb": {"distance": 6, "path": "PredicateList"},
+        "T_AuxiliarVerb": {"distance": 5, "path": "PredicateList"},
+        "T_Subject": {"distance": 2, "path": "Subject"},
+        "T_Adverb": {"distance": 6, "path": "PredicateList"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": 2, "path": "Subject"},
+        "T_Coordinator": {"distance": 3, "path": "PredicateList"},
+        "T_Adjective": {"distance": 4, "path": "Subject"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "VerbList": {
+        "T_Verb": {"distance": 2, "path": "VerbPartial"},
+        "T_AuxiliarVerb": {"distance": Infinity, "path": "np"},
+        "T_Subject": {"distance": Infinity, "path": "np"},
+        "T_Adverb": {"distance": Infinity, "path": "np"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": Infinity, "path": "np"},
+        "T_Coordinator": {"distance": Infinity, "path": "np"},
+        "T_Adjective": {"distance": Infinity, "path": "np"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "VerbPartial": {
+        "T_Verb": {"distance": 1, "path": "T_Verb"},
+        "T_AuxiliarVerb": {"distance": Infinity, "path": "np"},
+        "T_Subject": {"distance": Infinity, "path": "np"},
+        "T_Adverb": {"distance": Infinity, "path": "np"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": Infinity, "path": "np"},
+        "T_Coordinator": {"distance": Infinity, "path": "np"},
+        "T_Adjective": {"distance": Infinity, "path": "np"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "Subject": {
+        "T_Verb": {"distance": Infinity, "path": "np"},
+        "T_AuxiliarVerb": {"distance": Infinity, "path": "np"},
+        "T_Subject": {"distance": 1, "path": "T_Subject"},
+        "T_Adverb": {"distance": Infinity, "path": "np"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": 1, "path": "T_Article"},
+        "T_Coordinator": {"distance": Infinity, "path": "np"},
+        "T_Adjective": {"distance": 3, "path": "AdjectiveList"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "PredicateList": {
+        "T_Verb": {"distance": 5, "path": "PredicatePartial"},
+        "T_AuxiliarVerb": {"distance": 4, "path": "PredicatePartial"},
+        "T_Subject": {"distance": 5, "path": "PredicatePartial"},
+        "T_Adverb": {"distance": 5, "path": "PredicatePartial"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": Infinity, "path": "np"},
+        "T_Coordinator": {"distance": 2, "path": "PredicatePartial"},
+        "T_Adjective": {"distance": Infinity, "path": "np"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "PredicatePartial": {
+        "T_Verb": {"distance": 4, "path": "Predicate"},
+        "T_AuxiliarVerb": {"distance": 3, "path": "Predicate"},
+        "T_Subject": {"distance": 4, "path": "Predicate"},
+        "T_Adverb": {"distance": 4, "path": "Predicate"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": Infinity, "path": "np"},
+        "T_Coordinator": {"distance": 1, "path": "T_Coordinator"},
+        "T_Adjective": {"distance": Infinity, "path": "np"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "Predicate": {
+        "T_Verb": {"distance": 3, "path": "VerbList"},
+        "T_AuxiliarVerb": {"distance": 2, "path": "VerbPrefix"},
+        "T_Subject": {"distance": 3, "path": "nSubjectList"},
+        "T_Adverb": {"distance": 3, "path": "AdverbList"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": Infinity, "path": "np"},
+        "T_Coordinator": {"distance": Infinity, "path": "np"},
+        "T_Adjective": {"distance": Infinity, "path": "np"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "VerbPrefix": {
+        "T_Verb": {"distance": Infinity, "path": "np"},
+        "T_AuxiliarVerb": {"distance":1, "path": "T_AuxiliarVerb"},
+        "T_Subject": {"distance": Infinity, "path": "np"},
+        "T_Adverb": {"distance": 3, "path": "AdverbList"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": Infinity, "path": "np"},
+        "T_Coordinator": {"distance": Infinity, "path": "np"},
+        "T_Adjective": {"distance": Infinity, "path": "np"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "AdverbList": {
+        "T_Verb": {"distance": Infinity, "path": "np"},
+        "T_AuxiliarVerb": {"distance": Infinity, "path": "np"},
+        "T_Subject": {"distance": Infinity, "path": "np"},
+        "T_Adverb": {"distance": 2, "path": "AdverbPartial"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": Infinity, "path": "np"},
+        "T_Coordinator": {"distance": Infinity, "path": "np"},
+        "T_Adjective": {"distance": Infinity, "path": "np"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "AdverbPartial": {
+        "T_Verb": {"distance": Infinity, "path": "np"},
+        "T_AuxiliarVerb": {"distance": Infinity, "path": "np"},
+        "T_Subject": {"distance": Infinity, "path": "np"},
+        "T_Adverb": {"distance": 1, "path": "T_Adverb"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": Infinity, "path": "np"},
+        "T_Coordinator": {"distance": Infinity, "path": "np"},
+        "T_Adjective": {"distance": Infinity, "path": "np"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "AdjectiveList": {
+        "T_Verb": {"distance": Infinity, "path": "np"},
+        "T_AuxiliarVerb": {"distance": Infinity, "path": "np"},
+        "T_Subject": {"distance": Infinity, "path": "np"},
+        "T_Adverb": {"distance": Infinity, "path": "np"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": Infinity, "path": "np"},
+        "T_Coordinator": {"distance": Infinity, "path": "np"},
+        "T_Adjective": {"distance": 2, "path": "AdjectivePartial"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "AdjectivePartial": {
+        "T_Verb": {"distance": Infinity, "path": "np"},
+        "T_AuxiliarVerb": {"distance": Infinity, "path": "np"},
+        "T_Subject": {"distance": Infinity, "path": "np"},
+        "T_Adverb": {"distance": Infinity, "path": "np"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": Infinity, "path": "np"},
+        "T_Coordinator": {"distance": Infinity, "path": "np"},
+        "T_Adjective": {"distance": 1, "path": "T_Adjective"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "SubjectList": {
+        "T_Verb": {"distance": Infinity, "path": "np"},
+        "T_AuxiliarVerb": {"distance": Infinity, "path": "np"},
+        "T_Subject": {"distance": 2, "path": "SubjectPartial"},
+        "T_Adverb": {"distance": Infinity, "path": "np"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": Infinity, "path": "np"},
+        "T_Coordinator": {"distance": Infinity, "path": "np"},
+        "T_Adjective": {"distance": Infinity, "path": "np"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "SubjectPartial": {
+        "T_Verb": {"distance": Infinity, "path": "np"},
+        "T_AuxiliarVerb": {"distance": Infinity, "path": "np"},
+        "T_Subject": {"distance": 1, "path": "T_Subject"},
+        "T_Adverb": {"distance": Infinity, "path": "np"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": Infinity, "path": "np"},
+        "T_Coordinator": {"distance": Infinity, "path": "np"},
+        "T_Adjective": {"distance": Infinity, "path": "np"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "Compound": {
+        "T_Verb": {"distance": 7, "path": "SimpleSentence"},
+        "T_AuxiliarVerb": {"distance": 6, "path": "SimpleSentence"},
+        "T_Subject": {"distance": 3, "path": "SimpleSentence"},
+        "T_Adverb": {"distance": 7, "path": "SimpleSentence"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": 3, "path": "SimpleSentence"},
+        "T_Coordinator": {"distance": 1, "path": "T_Coordinator"},
+        "T_Adjective": {"distance": 5, "path": "SimpleSentence"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "Complex": {
+        "T_Verb": {"distance": 7, "path": "SimpleSentence"},
+        "T_AuxiliarVerb": {"distance": 6, "path": "SimpleSentence"},
+        "T_Subject": {"distance": 3, "path": "SimpleSentence"},
+        "T_Adverb": {"distance": 7, "path": "SimpleSentence"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": 3, "path": "SimpleSentence"},
+        "T_Coordinator": {"distance": 4, "path": "SimpleSentence"},
+        "T_Adjective": {"distance": 5, "path": "SimpleSentence"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    },
+    "Dependent": {
+        "T_Verb": {"distance": 7, "path": "SimpleSentence"},
+        "T_AuxiliarVerb": {"distance": 6, "path": "SimpleSentence"},
+        "T_Subject": {"distance": 3, "path": "SimpleSentence"},
+        "T_Adverb": {"distance": 7, "path": "SimpleSentence"},
+        "T_Subordinator": {"distance": Infinity, "path": "np"},
+        "T_Article": {"distance": 3, "path": "SimpleSentence"},
+        "T_Coordinator": {"distance": 4, "path": "SimpleSentence"},
+        "T_Adjective": {"distance": 5, "path": "SimpleSentence"},
+        "T_ExclamationMark": {"distance": Infinity, "path": "np"},
+        "T_InterrogationMark": {"distance": Infinity, "path": "np"}
+    }
 }
-
-
-
-
-
-
 
 const parent = {};
 
@@ -538,24 +532,44 @@ function getPath(startNode, targetNode, parent) {
     return path;
 }
 
-//Parameters: node - represents current node
-//            target - target token
-//Output:     next - the next node the path should follow for shortest path to target
-//            If the node cannot reach target, 'backtrack' is returned to tell calling
-//            function to go back to predecessor node to find another path towards target.
-function getHeuristic(node, target){
-    let nodelist = dict_heuristics[node];
-    for (let i = 0; i < nodelist.length; i++){
-        token = nodelist[i]['token']
-        next = nodelist[i]['path']
-        distance = nodelist[i]['distance']
-        if ((target === token) && (next != 'np')){
-            console.log(next)
-            return next
+//Parameters:   graph - present simple graph
+//              node - represents current node
+//              target - target token
+//Output:       list of nodes to explore next. List is sorted in ascending order.
+//              if there is not a path to target, returns empty list.
+function getHeuristic(graph, node, target){
+
+    //children holds children of current node and represents all potential paths from current node
+    let metanode = graph[node]
+    let choiceList = []
+
+    for (let i = 0; i < metanode.length; i++){
+        let ruleList = metanode[i] //the list of nodes in one rule of a metanode
+
+        for (let j = 0; j < ruleList.length; j++){
+            child = metanode[i][j] //single node inside of rulelist
+
+            //found target as a direct child
+            if(child === target){
+                choiceList.push([dict_heuristics[node][target]['distance'] + j, metanode[i]])
+            }
+            //a token or literal, but not target. Has no path to target
+            else if (child.startsWith("T_") || child === ',' || child === 'and'){
+                continue
+            }
+            //A node with potential path to target
+            else if(dict_heuristics[child][target]['path'] != 'np'){
+                choiceList.push([dict_heuristics[child][target]['distance'] + j, metanode[i]])
+            }
         }
     }
-    return 'backtrack'
+
+    //sort list in ascending order
+    choiceList.sort()
+    console.log(choiceList)
+    return choiceList
 };
+getHeuristic(dict_presentSimple, 'PresentSimple', 'T_Verb')
 
 const targets = ["T_Verb", "T_AuxiliarVerb", "T_Subject","T_Adverb","T_Article","T_Coordinator","T_Adjective", "T_ExclamationMark", "T_InterrogationMark"]
 // Object.keys(dict_heuristics).forEach(root => {
