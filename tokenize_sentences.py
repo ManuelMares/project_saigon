@@ -1,3 +1,5 @@
+import codecs
+import json
 import spacy
 
 input = "present_sentences.txt"
@@ -29,33 +31,20 @@ def translate():
         {"aloud": "T_Coordinator", "pos": ["CCONJ"], "tag": ["CC"], "dep": ["cc"]},
         {"aloud": "T_Adjective", "pos": ["ADJ"], "tag": ["JJ"], "dep": ["amod"]}
     ]
-    #Need to talk about breaking up subject into actual subject and just nouns? 'dobj' and 'pobj'
 
     sentences = ["I can go to the game today.", "I can't today.", "When do you want to go to the game today?",
-                 "How many people are there?", "Can you pick up George and Amy while you drive?", "Before you go, can you put away the dishes?",
+                 "How many people are there?", "Can you pick up George and Amy?", "Can you put away the dishes?",
                  "Do not do that!", "I can not believe it!", "Quickly and calmly find your way to the exit.",
-                 "As soon as she arrives, we can go.", "Although I am tired, we are still going to the game.",
-                 "While she plays tennis we are cooking her dinner because she does not have time to do it.", "I want as little as possible please.",
+                 "We can go today, tomorrow and next week.", "The beautiful flower can't die.",
+                 "We are cooking her dinner and cleaning the house.", "I want as little as possible please.",
                  "Do Jill and Jake both play tennis and swim?", "How is that possible?", "Let me think about it!", "She beautifully decorates the room.",
                  "I want a pretty cake."]
     output = []
-    # doc = nlp(sentences[1])
-
-    # print(doc)
-    # for t in range(0, len(doc)-1):
-    #     token = doc[t]
-    #     for tp in token_pairs:
-    #         if token.pos_ in tp['pos'] and token.dep_ in tp['dep']:
-    #             tokenized_sentence.append(tp['aloud'])
-    #             break
-    # tokenized_sentence.append(str(doc[-1]))
-    # output.append(tokenized_sentence)
 
 #get morphology of sentence - and translate into tokens and put into file
 
     for each in sentences:
         tokenized_sentence = []
-        tokenized_sentence.append(each)
         sentence = nlp(each)
         # print(sentence[-1]) #this gets you punctuation for token
 
@@ -72,7 +61,9 @@ def translate():
             tokenized_sentence.append('T_ExclamationMark')
         if str(sentence[-1]) == '?':
             tokenized_sentence.append('T_InterrogationMark')
-        output.append(tokenized_sentence)
+        output.append({'sentence': each, 'tokenized': tokenized_sentence})
 
+    with open ('test_sentences.json', 'wb') as f:
+        json.dump(output, codecs.getwriter('utf-8')(f), indent=4)
     print(output)
 translate()

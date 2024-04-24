@@ -1,5 +1,5 @@
 /*
-TOKENS  
+TOKENS
 DICT_PRESENT_SIMPLE
 DICT_HEURISTICS
 
@@ -383,11 +383,9 @@ If a token is not reachable, the default value is infinity
 */
 function calculateHeuristics(){
     const parent = {};
-    for (let node in DICT_PRESENT_SIMPLE) 
+    for (let node in DICT_PRESENT_SIMPLE)
         parent[node] = [];
-    
 
-    
     function bfs(graph, startNode, targetNode, maxDepth) {
         const queue = [startNode];
         const visited = new Set();
@@ -456,7 +454,7 @@ function calculateHeuristics(){
         return []; // Path not found
     }
 
-    
+
     function getPath(startNode, targetNode, parent) {
         const path = [];
         let current = targetNode;
@@ -477,5 +475,4 @@ function calculateHeuristics(){
 
         return path;
     }
-    
 }
