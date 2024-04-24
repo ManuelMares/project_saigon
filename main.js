@@ -175,16 +175,36 @@ Given an array of strings that form a sentence, this function indicates the opti
     
 */
 function deconstruct_sentence(sentence){
-    let sentenceParticle    = sentence[0];
-    let possibleRoots       = [ROOT];
-    let newRoot             = possibleRoots[0]
-    for (let indexSentence = 0; indexSentence < sentence.length; indexSentence++) {
-        for (let index_possibleRoots = 0; index_possibleRoots < array.length; index_possibleRoots++) {
-            newRoot             = possibleRoots[index_possibleRoots];
-            possibleRoots       = dfs(DICT_PRESENT_SIMPLE, newRoot, sentenceParticle, 10);
-            sentenceParticle    = sentence[indexSentence];
+    GetPath(ROOT, sentence, 0)
+}
+
+function GetPath(root, targets, targetIndex){
+    if(targetIndex >= targets.length)
+        return true
+    let target = targets[targetIndex];
+    // function dfs(graph, startNode, targetNode, maxDepth) {
+    let path = dfs(DICT_PRESENT_SIMPLE, root,  target, 10).reverse()
+
+
+    // let temp = path.coreverse();// clone array
+    let temp = []
+    for (let index = 0; index < path.length; index++) {
+        temp.push(path[index])
+    }
+    console.log(root, target, temp.reverse())
+    if(path == null)
+        return false
+
+
+    for (let indexRoox = 0; indexRoox < path.length; indexRoox++) {
+        const root = path[indexRoox];
+        if(GetPath(root, targets, targetIndex + 1)){
+            console.log(root)
+            return true;
         }
     }
+    return false;
+
 }
 
 deconstruct_sentence(["T_Adverb", "T_Subject"]);
