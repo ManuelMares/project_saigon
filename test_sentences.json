@@ -1,0 +1,180 @@
+[
+    {
+        "sentence": "I can go to the game today.",
+        "tokenized": [
+            "T_Subject",
+            "T_Verb",
+            "T_Article",
+            "T_Subject"
+        ]
+    },
+    {
+        "sentence": "I can't today.",
+        "tokenized": [
+            "T_Subject",
+            "T_AuxiliarVerb"
+        ]
+    },
+    {
+        "sentence": "When do you want to go to the game today?",
+        "tokenized": [
+            "T_Subject",
+            "T_Verb",
+            "T_Article",
+            "T_Subject",
+            "T_InterrogationMark"
+        ]
+    },
+    {
+        "sentence": "How many people are there?",
+        "tokenized": [
+            "T_Adjective",
+            "T_Subject",
+            "T_AuxiliarVerb",
+            "T_Adverb",
+            "T_InterrogationMark"
+        ]
+    },
+    {
+        "sentence": "Can you pick up George and Amy?",
+        "tokenized": [
+            "T_Subject",
+            "T_Verb",
+            "T_Subject",
+            "and",
+            "T_Subject",
+            "T_InterrogationMark"
+        ]
+    },
+    {
+        "sentence": "Can you put away the dishes?",
+        "tokenized": [
+            "T_Subject",
+            "T_Verb",
+            "T_Article",
+            "T_Subject",
+            "T_InterrogationMark"
+        ]
+    },
+    {
+        "sentence": "Do not do that!",
+        "tokenized": [
+            "T_Verb",
+            "T_Subject",
+            "T_ExclamationMark"
+        ]
+    },
+    {
+        "sentence": "I can not believe it!",
+        "tokenized": [
+            "T_Subject",
+            "T_Verb",
+            "T_Subject",
+            "T_ExclamationMark"
+        ]
+    },
+    {
+        "sentence": "Quickly and calmly find your way to the exit.",
+        "tokenized": [
+            "T_Adverb",
+            "and",
+            "T_Adverb",
+            "T_Verb",
+            "T_Subject",
+            "T_Article",
+            "T_Subject"
+        ]
+    },
+    {
+        "sentence": "We can go today, tomorrow and next week.",
+        "tokenized": [
+            "T_Subject",
+            "T_Verb",
+            "and",
+            "T_Adjective",
+            "T_Subject"
+        ]
+    },
+    {
+        "sentence": "The beautiful, strong flower can't die.",
+        "tokenized": [
+            "T_Article",
+            "T_Adjective",
+            ",",
+            "T_Adjective",
+            "T_Subject",
+            "T_Verb"
+        ]
+    },
+    {
+        "sentence": "We are cooking her dinner and cleaning the house.",
+        "tokenized": [
+            "T_Subject",
+            "T_Verb",
+            "T_Subject",
+            "and",
+            "T_Verb",
+            "T_Article",
+            "T_Subject"
+        ]
+    },
+    {
+        "sentence": "I want as little as possible please.",
+        "tokenized": [
+            "T_Subject",
+            "T_Verb",
+            "T_Adverb",
+            "T_Adjective"
+        ]
+    },
+    {
+        "sentence": "Do Jill and Jake both play tennis and swim?",
+        "tokenized": [
+            "T_Subject",
+            "and",
+            "T_Subject",
+            "T_Subject",
+            "T_Verb",
+            "T_Subject",
+            "and",
+            "T_Verb",
+            "T_InterrogationMark"
+        ]
+    },
+    {
+        "sentence": "How is that possible?",
+        "tokenized": [
+            "T_AuxiliarVerb",
+            "T_Subject",
+            "T_InterrogationMark"
+        ]
+    },
+    {
+        "sentence": "Let me think!",
+        "tokenized": [
+            "T_Verb",
+            "T_Subject",
+            "T_ExclamationMark"
+        ]
+    },
+    {
+        "sentence": "She beautifully decorates the room.",
+        "tokenized": [
+            "T_Subject",
+            "T_Adverb",
+            "T_Verb",
+            "T_Article",
+            "T_Subject"
+        ]
+    },
+    {
+        "sentence": "I want a pretty cake.",
+        "tokenized": [
+            "T_Subject",
+            "T_Verb",
+            "T_Article",
+            "T_Adjective",
+            "T_Subject"
+        ]
+    }
+]

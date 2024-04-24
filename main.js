@@ -8,41 +8,34 @@ const ROOT = "PresentSimple";
 //Output:       list of nodes to explore next. List is sorted in ascending order.
 //              if there is not a path to target, returns empty list.
 function getHeuristic(graph, node, target){
-
     //children holds children of current node and represents all potential paths from current node
     let metanode = graph[node]
     let choiceList = []
-
     for (let i = 0; i < metanode.length; i++){
         let ruleList = metanode[i] //the list of nodes in one rule of a metanode
-
         for (let j = 0; j < ruleList.length; j++){
-            child = metanode[i][j] //single node inside of rulelist
+            let child = ruleList[j] //single node inside of rulelist
 
             //found target as a direct child
             if(child === target){
-                choiceList.push([dict_heuristics[node][target]['distance'] + j, metanode[i]])
+                choiceList.push([DICT_HEURISTICS[node][target]['distance'] + j, metanode[i]])
             }
             //a token or literal, but not target. Has no path to target
             else if (child.startsWith("T_") || child === ',' || child === 'and'){
                 continue
             }
             //A node with potential path to target
-            else if(dict_heuristics[child][target]['path'] != 'np'){
-                choiceList.push([dict_heuristics[child][target]['distance'] + j, metanode[i]])
+            else if(DICT_HEURISTICS[child][target]['path'] != 'np'){
+                choiceList.push([DICT_HEURISTICS[child][target]['distance'] + j, metanode[i]])
             }
         }
     }
-
     //sort list in ascending order
     choiceList.sort()
     console.log(choiceList)
     return choiceList
 };
-// getHeuristic(DICT_PRESENT_SIMPLE, root, 'T_Verb')
-
-
-
+getHeuristic(DICT_PRESENT_SIMPLE, ROOT, 'T_Verb')
 
 
 
@@ -172,7 +165,7 @@ Given an array of strings that form a sentence, this function indicates the opti
 @param sentence
     An array of strings
 @return
-    
+
 */
 function deconstruct_sentence(sentence){
     GetPath(ROOT, sentence, 0)
