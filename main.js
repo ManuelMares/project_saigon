@@ -1,4 +1,4 @@
-import { DICT_HEURISTICS, DICT_PRESENT_SIMPLE, TOKENS } from "./assets/structures_SimplePresent.js";
+import { DICT_HEURISTICS, DICT_PRESENT_SIMPLE, TOKENS, calculateHeuristics_BFS } from "./assets/structures_SimplePresent.js";
 
 const ROOT = "PresentSimple";
 
@@ -38,7 +38,7 @@ function getHeuristic(graph, node, target){
 getHeuristic(DICT_PRESENT_SIMPLE, ROOT, 'T_Verb')
 
 
-
+calculateHeuristics_BFS("T_Verb");
 
 
 
