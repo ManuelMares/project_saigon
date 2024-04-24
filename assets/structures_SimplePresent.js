@@ -381,7 +381,7 @@ If a token is not reachable, the default value is infinity
 @postconditions
     dict_heuristics is updated
 */
-export function calculateHeuristics_BFS(target){
+export function calculateHeuristics_BFS(root){
     const parent = {};
     for (let node in DICT_PRESENT_SIMPLE)
         parent[node] = [];
@@ -483,6 +483,7 @@ export function calculateHeuristics_BFS(target){
     //Maybe create a loop that does:
     //for node in graph:
     //  bfs(dict..., node, target, 1000)
-    let a = bfs(DICT_PRESENT_SIMPLE, "PresentSimple", target, 1000);
+    let a = bfs(DICT_PRESENT_SIMPLE, root, "T_Verb", 1000);
+    console.log(a)
     console.log("=====================================================")
 }

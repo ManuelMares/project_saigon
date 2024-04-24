@@ -38,7 +38,7 @@ function getHeuristic(graph, node, target){
 getHeuristic(DICT_PRESENT_SIMPLE, ROOT, 'T_Verb')
 
 
-calculateHeuristics_BFS("T_Verb");
+calculateHeuristics_BFS("PresentSimple");
 
 
 
